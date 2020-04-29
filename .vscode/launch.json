@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "CoopGame (Debug)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Debug Build",
+			"program": "C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 DebugGame Build",
+			"program": "C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Development)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Development Build",
+			"program": "C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\Binaries\\Win64\\UE4.exe",
+			"args": [
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Shipping Build",
+			"program": "C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Test)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Test Build",
+			"program": "C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 Debug Build",
+			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 DebugGame Build",
+			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"args": [
+				"C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 Development Build",
+			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=\"C:\\Shockwave\\Projects\\Unreal Engine Projects\\Unreal Engine 4 Mastery Create Multiplayer Games with C++\\CoopGame\\CoopGame.uproject\"",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24"
+		}
+	]
+}
