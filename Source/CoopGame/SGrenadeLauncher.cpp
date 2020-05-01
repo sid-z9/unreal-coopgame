@@ -2,7 +2,8 @@
 
 
 #include "SGrenadeLauncher.h"
-// #include "ASProjectile"
+#include "SProjectile2.h"
+#include "Engine/World.h"
 
 // ASGrenadeLauncher::ASGrenadeLauncher()
 // {
@@ -10,7 +11,7 @@
 
     
 
-//     // MuzzleSocketName = "MuzzleSocket";
+//     MuzzleSocketName = "MuzzleSocket";
 // 	// TracerTargetName = "Target";
 // }
 
@@ -49,4 +50,33 @@
 //         }
 //     }
 // }
+
+void ASGrenadeLauncher::Fire()
+{
+    AActor* MyOwner = GetOwner();
+    
+    if (MyOwner)
+    {
+        FVector EyeLocation;
+		FRotator EyeRotation;
+		MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.Owner = this;
+        SpawnParams.Instigator = Instigator;
+
+        FVector MuzzleLocation = MeshComp->GetSocketLocation(MuzzleSocketName);
+        // FRotator MuzzleRotation = MuzzleLocation.Rotation();
+
+        // Spawn the projectile at the muzzle.
+        ASProjectile2* Projectile = GetWorld()->SpawnActor<ASProjectile2>(ProjectileClass, MuzzleLocation, EyeRotation, SpawnParams);
+
+        if (Projectile)
+        {
+            // Set the projectile's initial trajectory.
+            FVector LaunchDirection = EyeRotation.Vector();
+            Projectile->FireInDirection(LaunchDirection);
+        }
+    }
+}
 

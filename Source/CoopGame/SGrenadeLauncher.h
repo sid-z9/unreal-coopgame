@@ -10,7 +10,7 @@
  * 
  */
 
-// class ASProjectile;
+class ASProjectile2;
 
 UCLASS()
 class COOPGAME_API ASGrenadeLauncher : public ASWeapon
@@ -19,11 +19,11 @@ class COOPGAME_API ASGrenadeLauncher : public ASWeapon
 
 protected:
 	// Projectile class to spawn.
-   	// UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	// TSubclassOf<ASProjectile> ProjectileClass;
+   	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	TSubclassOf<ASProjectile2> ProjectileClass;
 
 	// UFUNCTION(BlueprintCallable, Category = "Weapons")
 	virtual void Fire() override;
 
-	void FireInDirection(const FVector& ShootDirection);
+	// void FireInDirection(const FVector& ShootDirection);
 };
