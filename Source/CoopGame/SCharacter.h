@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class ASWeapon;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -28,13 +29,35 @@ protected:
 	void BeginCrouch();
 	void EndCrouch();
 
-	void PlayerJump();
+	void BeginZoom();
+	void EndZoom();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")	// BlueprintReadOnly so that multiple instances cannot be created of camera
 	UCameraComponent* CameraComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent* SpringArmComponent;
+
+	// DefaultFOV = 90, ZoomedInFOV = 65, bWantsToZoom
+	float DefaultFOV;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	float ZoomedInFOV;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.1, ClampMax = 100))	// sets range 
+	float ZoomInterpSpeed;
+
+	bool bWantsToZoom;
+
+	ASWeapon* CurrentWeapon;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
+
+	void Fire();
+
+	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
+	FName WeaponAttachSocketName;
 
 public:	
 	// Called every frame
