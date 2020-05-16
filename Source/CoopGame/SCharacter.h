@@ -50,6 +50,7 @@ protected:
 
 	bool bWantsToZoom;
 
+	UPROPERTY(Replicated)	// enable replicating on client 
 	ASWeapon* CurrentWeapon;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
@@ -65,11 +66,13 @@ protected:
 	USHealthComponent* HealthComp;
 
 	// Pawn died previously
-	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
 
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComponent, float Health, float HealthData, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 public:	
 	// Called every frame

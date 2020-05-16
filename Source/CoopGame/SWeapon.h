@@ -11,6 +11,20 @@ class UDamageType;
 class UParticleSystem;
 class UCameraShake;
 
+// contain information of a single hitscan weapon interface
+USTRUCT()
+struct FHitScanTrace
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	TEnumAsByte<EPhysicalSurface> SurfaceType;
+
+	UPROPERTY()
+	FVector_NetQuantize TraceTo;
+};
+
 UCLASS()
 class COOPGAME_API ASWeapon : public AActor
 {
@@ -50,6 +64,8 @@ protected:
 
 	void PlayFireEffects(FVector TraceEnd);
 
+	void PlayImpactEffects(EPhysicalSurface SurfaceType, FVector ImpactPoint);
+
 	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
 	TSubclassOf<UCameraShake> FireCamShake;
 
@@ -65,6 +81,15 @@ protected:
 
 	// Derived from RateOfFire
 	float TimeBetweenShots;
+
+	UFUNCTION(Server, Reliable, WithValidation)		// Server means the code will be pushed to server		// WithValidation is for anti-cheat code
+	void ServerFire();		// Reliable means its guaranteed to eventually run on the server; used for gameplay critical components, for less imp stuff use unreliable
+
+	UPROPERTY(ReplicatedUsing=OnRep_HitScanTrace)
+	FHitScanTrace HitScanTrace;
+
+	UFUNCTION()
+	void OnRep_HitScanTrace();
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Weapons")
