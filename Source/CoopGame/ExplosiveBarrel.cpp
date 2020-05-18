@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel()
@@ -31,6 +32,11 @@ AExplosiveBarrel::AExplosiveBarrel()
 	ExplodedBarrelMaterial = CreateDefaultSubobject<UMaterialInterface>(TEXT("ExplodedBarrelMaterial"));
 	
 	bExploded = false;
+
+	SetReplicates(true);
+
+	NetUpdateFrequency = 66.0f;
+	MinNetUpdateFrequency = 33.0f;
 }
 
 // Called when the game starts or when spawned
@@ -38,7 +44,7 @@ void AExplosiveBarrel::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HealthComp->OnHealthChanged.AddDynamic(this, &AExplosiveBarrel::OnHealthChanged);
+	HealthComp->OnHealthChanged.AddDynamic(this, &AExplosiveBarrel::OnHealthChanged);	
 }
 
 // Called every frame
@@ -52,24 +58,41 @@ void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComponent, float
 {
 	if(Health <= 0.f && !bExploded)
 	{
-		bExploded = true;
+		bExploded = true;	
 
-		// Play Explosion Effect
-		if(ExplosionEffect)
-		{
-			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());	
-		}
-
-		// Make the barrel jump
-		MeshComp->AddImpulse(FVector(0, 0, 600), NAME_None, true);
-
-		// Change the barrel material
-		if(ExplodedBarrelMaterial)
-		{
-			MeshComp->SetMaterial(0, ExplodedBarrelMaterial);
-		}
-		
-		// Push away nearby actors
-		RadialForceComp->FireImpulse();
+		PlayExplosionEffect();
 	}
+}
+
+void AExplosiveBarrel::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AExplosiveBarrel, bExploded);	// replicate bExploded variable to any relevant client connected to server
+}
+
+void AExplosiveBarrel::OnRep_bExploded()
+{
+	PlayExplosionEffect();
+}
+
+void AExplosiveBarrel::PlayExplosionEffect()
+{
+	// Play Explosion Effect
+	if(ExplosionEffect)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());	
+	}
+
+	// Make the barrel jump
+	MeshComp->AddImpulse(FVector(0, 0, 600), NAME_None, true);
+
+	// Change the barrel material
+	if(ExplodedBarrelMaterial)
+	{
+		MeshComp->SetMaterial(0, ExplodedBarrelMaterial);
+	}
+		
+	// Push away nearby actors
+	RadialForceComp->FireImpulse();
 }

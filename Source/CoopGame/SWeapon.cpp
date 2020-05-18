@@ -48,9 +48,9 @@ void ASWeapon::BeginPlay()
 
 void ASWeapon::Fire()
 {
-	if(GetLocalRole() < ROLE_Authority)
+	if(GetLocalRole() < ROLE_Authority)		
 	{
-		ServerFire();
+		ServerFire();	// when client fires, the same has to be replicated on server side
 	}
 
 	// trace the world from pawn eyes to world location

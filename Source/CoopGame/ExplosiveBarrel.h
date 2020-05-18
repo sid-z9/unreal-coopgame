@@ -30,8 +30,14 @@ public:
 	UFUNCTION()
     void OnHealthChanged(USHealthComponent* HealthComponent, float Health, float HealthData, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
+	UPROPERTY(ReplicatedUsing=OnRep_bExploded)
 	bool bExploded;
 
+	UFUNCTION()
+	void OnRep_bExploded();
+
+	void PlayExplosionEffect();
+	
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* ExplodedBarrelMaterial;
 
