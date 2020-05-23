@@ -47,3 +47,10 @@ void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 	DOREPLIFETIME(USHealthComponent, Health);	// replicate Health variable to any relevant client connected to server
 }
+
+void USHealthComponent::OnRep_Health(float OldHealth)
+{
+	float Damage = Health - OldHealth;		// ReplicatedUsing functions provide access to previous/old values
+	
+	OnHealthChanged.Broadcast(this, Health, Damage, nullptr, nullptr, nullptr);
+}
