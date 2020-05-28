@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// TODO: Swarm AI - Increase damage level when multiple tracker bots get nearby - 11.13
 
 #include "STrackerBot.h"
 
@@ -87,6 +88,15 @@ void ASTrackerBot::Tick(float DeltaTime)
 		}
 
 		DrawDebugSphere(GetWorld(), NextPathPoint, 20, 12, FColor::Yellow, false, 0.0f, 1.0f);
+
+		TArray<AActor*> OverlappingTrackerBots;
+
+		// MeshComp->GetOverlappingActors(OverlappingTrackerBots);
+		//
+		// for (AActor* OverlappedActor : OverlappingTrackerBots)
+		// {
+		// 	UE_LOG(LogTemp, Warning, TEXT("%s overlapped"), *OverlappedActor->GetName());
+		// }
 	}
 }
 
@@ -172,6 +182,8 @@ void ASTrackerBot::DamageSelf()
 
 void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
 {
+	Super::NotifyActorBeginOverlap(OtherActor);
+	
 	if(!bStartedSelfDestruction && !bExploded)
 	{
 		ASCharacter* PlayerPawn = Cast<ASCharacter>(OtherActor);
@@ -188,6 +200,12 @@ void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
 			bStartedSelfDestruction = true;
 
 			UGameplayStatics::SpawnSoundAttached(SelfDestructSound, RootComponent);
+		}
+
+		ASTrackerBot* TrackerBot = Cast<ASTrackerBot>(OtherActor);
+		if(TrackerBot)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s overlapped"), *GetName());	
 		}
 	}
 }
