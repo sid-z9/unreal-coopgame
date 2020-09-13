@@ -7,6 +7,7 @@
 #include "ShaderCompilerCommon/Private/HlslLexer.h"
 #include "TimerManager.h"
 #include "SPowerupActor.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 ASPickupActor::ASPickupActor()
@@ -19,6 +20,10 @@ ASPickupActor::ASPickupActor()
 	DecalComp->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
 	DecalComp->DecalSize = (FVector(64, 75, 75));
 	DecalComp->SetupAttachment(RootComponent);
+
+	CooldownDuration = 10.f;
+
+	SetReplicates(true);
 }
 
 // Called when the game starts or when spawned
@@ -26,7 +31,10 @@ void ASPickupActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Respawn();
+	if(Role == ROLE_Authority)
+	{
+		Respawn();	
+	}
 }
 
 void ASPickupActor::Respawn()
@@ -47,9 +55,9 @@ void ASPickupActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if(PowerupInstance)
+	if(Role == ROLE_Authority && PowerupInstance)
 	{
-		PowerupInstance->ActivatePowerup();
+		PowerupInstance->ActivatePowerup(OtherActor);
 		PowerupInstance = nullptr;
 		
 		// Set Timer to respawn powerup
